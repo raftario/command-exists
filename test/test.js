@@ -27,7 +27,7 @@ describe('commandExists', () => {
     })
   })
 
-  if (Number(process.version.split('.')[1]) >= 7) {
+  if (Number(process.version.split('.')[0]) >= 7) {
     describe('await', () => {
       it('should find a command named which or where', async () => {
         let command = 'which'
