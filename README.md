@@ -1,83 +1,48 @@
-command-exists
-==============
+# command-exists-promise
 
-node module to check if a command-line command exists
+Node module to check if a command-line command exists.
+Forked from [command-exists](https://github.com/mathisonian/command-exists).
 
+## Installation
 
-
-## installation
-
-```bash
-npm install command-exists
+```console
+# For npm users
+$ npm i command-exists-promise
+# For yarn users
+$ yarn add command-exists-promise
 ```
 
-## usage
-
-### async
-
+## Usage
+The function returns a promise that will resolve to `true` if the command exists and `false` if it doesn't.  
+On UNIX, the promise will resolve to `true` if the command is a path to an executable file. On Windows, it will resolve to `true` for any existing file.
+### Promise
 ```js
-var commandExists = require('command-exists');
+const commandExists = require('command-exists-promise')
 
-commandExists('ls', function(err, commandExists) {
-
-    if(commandExists) {
-        // proceed confidently knowing this command is available
-    }
-
-});
-```
-### promise
-```js
-var commandExists = require('command-exists');
-
-// invoked without a callback, it returns a promise
 commandExists('ls')
-.then(function(command){
-    // proceed
-}).catch(function(){
-    // command doesn't exist
-});
+  .then(exists => {
+    if (exists) {
+      // The command exists
+    } else {
+      // The command doesn't exist
+    }
+  })
+  .catch(err => {
+    // Should never happen but better handle it just in case
+  })
 ```
-
-### sync
+### Await
 ```js
-var commandExistsSync = require('command-exists').sync;
-// returns true/false; doesn't throw
-if (commandExistsSync('ls')) {
-    // proceed
-} else {
-    // ...
+const commandExists = require('command-exists-promise')
+
+try {
+  const exists = await commandExists('ls')
+  if (exists) {
+    // The command exists
+  } else {
+    // The command doesn't exist
+  }
+} catch (err) {
+  // Should never happen but better handle it just in case
 }
-
 ```
-
-
-## changelog
-
-### v1.2.7
-
-Removes unnecessary printed output on windows.
-
-### v1.2.6
-
-Small bugfixes.
-
-### v1.2.5
-
-Fix windows bug introduced in 1.2.4.
-
-### v1.2.4
-
-Fix potential security issue.
-
-### v1.2.0
-
-Add support for promises
-
-### v1.1.0
-
-Add synchronous version
-
-### v1.0.2
-
-Support for windows
