@@ -10,7 +10,9 @@
   "keywords": [
     "cli",
     "command",
-    "exists"
+    "exists",
+    "promise",
+    "async"
   ],
   "files": [],
   "author": "Raphaël Thériault <raphael_theriault@outlook.com> (https://raphaeltheriault.com)",
