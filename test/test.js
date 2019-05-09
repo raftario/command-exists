@@ -27,22 +27,24 @@ describe('commandExists', () => {
     })
   })
 
-  describe('await', () => {
-    it('should find a command named which or where', async () => {
-      let command = 'which'
-      if (windows) {
-        command = 'where'
-      }
+  if (Number(process.version.split('.')[1]) >= 6) {
+    describe('await', () => {
+      it('should find a command named which or where', async () => {
+        let command = 'which'
+        if (windows) {
+          command = 'where'
+        }
 
-      const exists = await commandExists(command)
-      expect(exists).to.be(true)
-    })
+        const exists = await commandExists(command)
+        expect(exists).to.be(true)
+      })
 
-    it('should not find a command named fdsafdsafdsafdsafdsa', async () => {
-      const exists = await commandExists('fdsafdsafdsafdsafdsa')
-      expect(exists).to.be(false)
+      it('should not find a command named fdsafdsafdsafdsafdsa', async () => {
+        const exists = await commandExists('fdsafdsafdsafdsafdsa')
+        expect(exists).to.be(false)
+      })
     })
-  })
+  }
 
   describe('local file', () => {
     it('should report true if there is an executable file with that name', done => {
