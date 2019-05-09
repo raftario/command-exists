@@ -4,6 +4,9 @@ const expect = require('expect.js')
 const commandExists = require('../lib')
 
 const windows = process.platform === 'win32'
+const testAwait = Number(process.version.replace(/[^0-9.]*/g, '').split('.')[0]) >= 7
+  ? require('./await')
+  : false
 
 describe('commandExists', () => {
   describe('promise', () => {
@@ -27,22 +30,7 @@ describe('commandExists', () => {
     })
   })
 
-  describe('await', () => {
-    it('should find a command named which or where', async () => {
-      let command = 'which'
-      if (windows) {
-        command = 'where'
-      }
-
-      const exists = await commandExists(command)
-      expect(exists).to.be(true)
-    })
-
-    it('should not find a command named fdsafdsafdsafdsafdsa', async () => {
-      const exists = await commandExists('fdsafdsafdsafdsafdsa')
-      expect(exists).to.be(false)
-    })
-  })
+  if (testAwait) testAwait(windows)
 
   describe('local file', () => {
     it('should report true if there is an executable file with that name', done => {
