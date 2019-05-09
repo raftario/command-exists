@@ -27,6 +27,8 @@ describe('commandExists', () => {
     })
   })
 
+  console.log(Number(process.version.replace(/[^0-9.]*/g, '').split('.')[0]))
+
   if (Number(process.version.replace(/[^0-9.]*/g, '').split('.')[0]) >= 7) {
     describe('await', () => {
       it('should find a command named which or where', async () => {
